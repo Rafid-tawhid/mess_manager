@@ -11,6 +11,7 @@ import 'package:mess_manager/pages/login_page.dart';
 import 'package:mess_manager/pages/register_page.dart';
 import 'package:mess_manager/providers/meals_provider.dart';
 import 'package:mess_manager/providers/member_provider.dart';
+import 'package:mess_manager/providers/personal_provider.dart';
 import 'package:mess_manager/utils/custom_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
       ),
       providers: [
         ChangeNotifierProvider(create: (context)=>MemberProvider()),
-        ChangeNotifierProvider(create: (context)=>MembersMealProvider())
+        ChangeNotifierProvider(create: (context)=>MembersMealProvider()),
+        ChangeNotifierProvider(create: (context)=>PersonalInfoProvider()..getMyMoneyInfo()),
       ],
     );
   }

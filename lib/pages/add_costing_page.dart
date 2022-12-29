@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:mess_manager/models/add_costing.dart';
+import 'package:mess_manager/pages/dashboard_page.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/member_provider.dart';
@@ -207,7 +208,7 @@ class _AddCostsPageState extends State<AddCostsPage> {
                         EasyLoading.show();
                         Provider.of<MemberProvider>(context,listen: false).addMessCosting(costing).then((value) {
                           EasyLoading.dismiss();
-
+                          Navigator.pushNamed(context, DashboardPage.routeName);
                         });
                       }
 

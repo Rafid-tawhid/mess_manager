@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:mess_manager/auth/firebase_auth_service.dart';
 import 'package:mess_manager/models/add_money.dart';
 import 'package:mess_manager/pages/dashboard_page.dart';
 import 'package:mess_manager/providers/member_provider.dart';
@@ -196,6 +197,7 @@ class _AddMembersMoneyState extends State<AddMembersMoney> {
     EasyLoading.show();
     final moneyModel=AddMoney(
         name: _name!,
+        email: FirebaseAuthService?.currentUser!.email!,
         date: Timestamp.fromDate(_selectedDate!)!,
         amount: double.parse(_amountCon.text));
     provider.insertMembersMoney(moneyModel).then((value) {

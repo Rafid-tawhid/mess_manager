@@ -30,7 +30,7 @@ class MemberProvider extends ChangeNotifier {
       notifyListeners();
     });
   }
-  String loginMemberName(String email){
+  String loginMemberName(){
     List<AddMemberModel> member=[];
     memberListInfo.forEach((element) {
       if(element.email==FirebaseAuth.instance.currentUser!.email){

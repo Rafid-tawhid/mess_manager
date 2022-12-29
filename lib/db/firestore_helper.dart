@@ -1,9 +1,13 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mess_manager/models/addMember_models.dart';
 import 'package:mess_manager/models/add_costing.dart';
 import 'package:mess_manager/models/add_meals.dart';
 import 'package:mess_manager/models/add_money.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/member_provider.dart';
 
 class FireStoreHelper {
   static const String _collectionMembers='Members';
@@ -29,6 +33,8 @@ class FireStoreHelper {
 
   static Stream<QuerySnapshot<Map<String,dynamic>>> getAllMembersMoneyInfo()=>_db.collection(_collectionMoney).snapshots();
 
+  static Stream<QuerySnapshot<Map<String,dynamic>>> getMyMoneyInfo()=>_db.collection(_collectionMoney).where('email',isEqualTo:_auth.currentUser!.email ).snapshots();
+
   static Stream<QuerySnapshot<Map<String,dynamic>>> getAllMembersMealInfo()=>_db.collection(_collectionMeals).snapshots();
 
   static Future<void> addNewMember(AddMemberModel addMemberModel)async{
@@ -48,7 +54,9 @@ class FireStoreHelper {
 
 
   static Future<void> addMemberMoney(AddMoney money)async{
-
+    // _db.collection(_collectionMoney).where('name',isEqualTo: money.name).get().then((value){
+    //
+    // });
     final docRef= _db.collection(_collectionMoney).doc();
     money.id=docRef.id;
     return docRef.set(money.toMap());
@@ -62,5 +70,10 @@ class FireStoreHelper {
     costing.id=docRef.id;
     return docRef.set(costing.toMap());
   }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getTotalMealsByName(String name){
+  return  _db.collection(_collectionMeals).where('name',isEqualTo: name).snapshots();
+  }
+
 
 }
